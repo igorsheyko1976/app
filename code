@@ -1,0 +1,86 @@
+# python code (app.py)
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        name = request.form['name']
+        city = request.form['city']
+        hobby = request.form['hobby']
+        age = request.form['age']
+        return render_template('result.html', name=name, city=city, hobby=hobby, age=age)
+    return render_template('form.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+#html code (form.html)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>User Profile Form</h1>
+        <form method="POST" action="/">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="city">City:</label>
+                <input type="text" class="form-control" id="city" name="city" required>
+            </div>
+            <div class="form-group">
+                <label for="hobby">Hobby:</label>
+                <input type="text" class="form-control" id="hobby" name="hobby" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" class="form-control" id="age" name="age" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
+
+#html code (result.html)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>User Profile Result</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <p>Name: {{ name }}</p>
+            </div>
+            <div class="col-md-6">
+                <p>City: {{ city }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <p>Hobby: {{ hobby }}</p>
+            </div>
+            <div class="col-md-6">
+                <p>Age: {{ age }}</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
